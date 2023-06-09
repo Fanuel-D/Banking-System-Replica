@@ -64,7 +64,7 @@ int main(){
             if (it != my_dict.end()) {
             // Key found, use the iterator to access the value
             Account* curr_account = it->second;
-            
+            end:
                 cout << " 1. Deposit " << endl;
                 cout << " 2. Withdraw" << endl;
                 cout << " 3. Transfer " << endl;
@@ -76,7 +76,7 @@ int main(){
                         cout<< "Please, enter amount: ";
                         cin>> amount;
                         curr_account->deposit(curr_account->get_balance(), amount);
-
+                        goto end;
                     }else if (choice == 2){
                         float amount;
                         cout<< "Please, enter amount: ";
@@ -87,7 +87,7 @@ int main(){
                             cin>> amount;
                         }
                         curr_account->withdraw(curr_account->get_balance(), amount);
-                        
+                        goto end;
                     }else if (choice == 3){
                         int acc_num;
                         float amount;
@@ -110,12 +110,14 @@ int main(){
                         }
                         curr_account->withdraw(curr_account->get_balance(), amount);
                         trans_account->deposit(trans_account->get_balance(),amount);
+                        goto end;
                     }else if (choice == 4){
                         float months;
                         cout<<"How many months ahead do you want to calculate your interest";
                         cin>> months;
                         float total= curr_account->interest(curr_account->get_balance(),months);
                         cout<<"This is your compounded total amount"<<total<<endl;
+                        goto end;
 
                     }
                 } else {
