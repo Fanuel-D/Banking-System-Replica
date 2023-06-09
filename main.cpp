@@ -1,4 +1,4 @@
-#pragma once
+
 #include <iostream> 
 #include <unordered_map>
 
@@ -10,8 +10,11 @@ using namespace std;
 
 int main(){
     
-
-    unordered_map<int, Account>* my_dict = new unordered_map<int, Account>();
+    
+    string tempname;
+    string tempPassword = "";
+    int userchoice;
+    unordered_map<int, Account*> my_dict;
     
     while (true)
     {
@@ -48,8 +51,10 @@ int main(){
             if (my_dict.count(randacc) > 0){
                 goto again;
             }
-            Account* account = new Account(tempname, randacc, float balance=0);
-            my_dict[randacc] = account;
+            float balance = 0;
+            Account* account = new Account(tempname, randacc, balance);
+            my_dict.insert(make_pair(randacc, account));
+           
 
             cout << "This is your account number: " << account->get_accountNumber() << endl;
             cout << "This is your balance: " << account->get_balance() << endl;

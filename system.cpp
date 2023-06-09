@@ -4,23 +4,22 @@ using namespace std;
 #include "system.h"
 
 
-Account:: Account(string name, int account_number, int phone_number, float balance){
+Account:: Account(string name, int account_number, float balance){
 
     this->name = name;
     this->account_number = account_number;
-    this->phone_number = phone_number;
     this->balance = balance;
 
 }
 
-Account:: ~Account(string name, int account_number, int phone_number, float balance){
-    delete Account(name, account_number, phone_number, balance);
+Account:: ~Account(){
+    
 }
 
-void Account:: update_info(str name, int phone_number){
+void Account:: update_info(string name){
 
     this->name = name;
-    this->phone_number = phone_number;
+
 
 }
 
@@ -41,22 +40,23 @@ string Account::withdraw(float balance, float amount){
     return "Your current balance is "+ to_string(this->balance);
 }
 
-string Account::transfer(float amount, int account_number1, int account_number2){
+// string Account::transfer(float amount, int account_number1, int account_number2){
 
-    account_number1->withdraw(account_number1->get_balance(),amount);
-    account_number2->deposit(account_number2->get_balance(),amount) ;
-    return "Your transfer amount of " + to_string(amount) + " was successfull";
-}
+//     account_number1->withdraw(account_number1->get_balance(),amount);
+//     account_number2->deposit(account_number2->get_balance(),amount) ;
+//     return "Your transfer amount of " + to_string(amount) + " was successfull";
+// }
 
 float Account::interest(float balance, int num_month){
-    float total = balance(1+0.07)**(num_month/12);
+    float total;
+    total = pow(balance * (1.07),(num_month/12));
     return total;
 }
 
 int Account::get_accountNumber(){
     return this->account_number;
 }
-string Account::history(){
+// string Account::history(){
 
 
-}
+// }
