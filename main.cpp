@@ -10,18 +10,18 @@ using namespace std;
 
 int main(){
     
-    
     string tempname;
     string tempPassword = "";
     int userchoice;
     unordered_map<int, Account*> my_dict;
     int user_num;
-    
-    while (true)
+    bool flip= true;
+    while (flip)
     {
 
         cout << " 1. Create an account " << endl;
         cout << " 2. Login" << endl;
+        cout << " 3. Quit" << endl;
         cout << " Choose the action to be performed : ";
         cin >> userchoice;
 
@@ -43,7 +43,6 @@ int main(){
             
         again:
             int randacc = rand();
-            // % 900000 + 100000;
             if (my_dict.count(randacc) > 0){
                 goto again;
             }
@@ -54,7 +53,7 @@ int main(){
 
             cout << "This is your account number: " << account->get_accountNumber() << endl;
             cout << "This is your balance: " << account->get_balance() << endl;
-        }else{
+        }else if (userchoice == 2){
 
         start:
             cout << "Enter Your account number: ";
@@ -69,13 +68,54 @@ int main(){
                 cout << " 1. Deposit " << endl;
                 cout << " 2. Withdraw" << endl;
                 cout << " 3. Transfer " << endl;
+                cout<< " 4. Calculate my intreset "<< endl;
                 cout << " Choose the action to be performed : ";
                 cin >> choice; 
                     if (choice == 1){
+                        float amount;
+                        cout<< "Please, enter amount: ";
+                        cin>> amount;
+                        curr_account->deposit(curr_account->get_balance(), amount);
 
                     }else if (choice == 2){
-
+                        float amount;
+                        cout<< "Please, enter amount: ";
+                        cin>> amount;
+                        while(amount > curr_account->get_balance()){
+                            cout<< "You don't have enough funds to make this withdrawal";
+                            cout<< "Please, input an appropriate amount";
+                            cin>> amount;
+                        }
+                        curr_account->withdraw(curr_account->get_balance(), amount);
+                        
                     }else if (choice == 3){
+                        int acc_num;
+                        float amount;
+                        cout<<"Enter account number to which you want to transfer the funds to: ";
+                        cin>> acc_num;
+                        auto it = my_dict.find(acc_num);
+                        
+
+                        while(it == my_dict.end()){
+                            cout<<"Account number not found, re-enter the account number: ";
+                            cin>> acc_num;
+                        }
+                        Account* trans_account = it->second;
+                        cout<< "Please, enter amount: ";
+                        cin>> amount;
+                        while(amount > curr_account->get_balance()){
+                            cout<< "You don't have enough funds to make this withdrawal";
+                            cout<< "Please, input an appropriate amount";
+                            cin>> amount;
+                        }
+                        curr_account->withdraw(curr_account->get_balance(), amount);
+                        trans_account->deposit(trans_account->get_balance(),amount);
+                    }else if (choice == 4){
+                        float months;
+                        cout<<"How many months ahead do you want to calculate your interest";
+                        cin>> months;
+                        float total= curr_account->interest(curr_account->get_balance(),months);
+                        cout<<"This is your compounded total amount"<<total<<endl;
 
                     }
                 } else {
@@ -83,13 +123,15 @@ int main(){
                 cout << "Key not found in the unordered_map." << endl;
                 goto start;
                 }
-
-        }
+        }else {
+            flip = false;
+            cout<< "Good Bye!"<<endl;
         }
         
-        return 0;
-        }
-
+    return 0;
+}
+}
+    
 
     
 
