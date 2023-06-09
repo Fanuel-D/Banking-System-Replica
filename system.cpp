@@ -30,13 +30,12 @@ float Account::get_balance(){
 
 }
 
-string Account::deposit(float balance, int amount){
-
+string Account::deposit(float balance, float amount){
     this->balance+= amount;
     return "Your current balance is "+ to_string(this->balance);
 }
 
-string Account::withdraw(float balance, int amount){
+string Account::withdraw(float balance, float amount){
 
     this->balance-=amount;
     return "Your current balance is "+ to_string(this->balance);
@@ -49,7 +48,15 @@ string Account::transfer(float amount, int account_number1, int account_number2)
     return "Your transfer amount of " + to_string(amount) + " was successfull";
 }
 
-float Account::interest(int balance, int num_month){
+float Account::interest(float balance, int num_month){
     float total = balance(1+0.07)**(num_month/12);
     return total;
+}
+
+int Account::get_accountNumber(){
+    return this->account_number;
+}
+string Account::history(){
+
+
 }
